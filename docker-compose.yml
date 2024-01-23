@@ -4,23 +4,20 @@ version: '3'
 volumes:
   mysql_data:
 services:
-  authorization_end_point_app:
+  multi_factor_authentication:
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - '.:/authorization_end_point_app/'
+      - '.:/multi_factor_authentication/'
     ports:
-      - '3005:3005'
+      - '3015:3015'
     tty: true
     stdin_open: true
     depends_on:
       - db
     links:
       - db:database
-    networks:
-      - default
-      - shared-network
   db:
     image: mysql:8.0
     volumes:
@@ -28,8 +25,4 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
     ports:
-      - '3310:3310'
-
-networks:
-  shared-network:
-    external: true
+      - '3315:3315'
