@@ -3,6 +3,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts or /accounts.json
   def index
+    debugger
     @accounts = Account.all
   end
 
@@ -65,6 +66,6 @@ class AccountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def account_params
-      params.require(:account).permit(:email, :password_digest)
+      params.require(:account).permit(:email, :password)
     end
 end

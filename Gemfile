@@ -6,6 +6,7 @@ ruby "3.3.0"
 gem "rails", "~> 7.1.2"
 gem 'rotp', '~> 6.3'
 gem 'rodauth-rails', '~> 1.13'
+gem 'rqrcode', '~> 2.2'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

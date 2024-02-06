@@ -1,0 +1,3 @@
+class AccountOtpKey < ApplicationRecord
+
+end

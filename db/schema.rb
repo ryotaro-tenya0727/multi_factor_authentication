@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_06_092143) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_06_113540) do
+  create_table "account_otp_keys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "key", null: false
+    t.integer "num_failures", default: 0, null: false
+    t.datetime "last_use", default: -> { "CURRENT_TIMESTAMP(6)" }, null: false
+  end
+
+  create_table "account_recovery_codes", primary_key: ["id", "code"], charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "id", null: false
+    t.integer "account_id", null: false
+    t.string "code", null: false
+  end
+
+  create_table "account_sms_codes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "phone_number", null: false
+    t.integer "num_failures"
+    t.string "code"
+    t.datetime "code_issued_at", default: -> { "CURRENT_TIMESTAMP(6)" }, null: false
+  end
+
   create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -18,4 +39,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_092143) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "account_otp_keys", "accounts", column: "id"
+  add_foreign_key "account_recovery_codes", "accounts", column: "id"
+  add_foreign_key "account_sms_codes", "accounts", column: "id"
 end
